@@ -36,16 +36,4 @@ public class RestaurantMapper {
         restaurant.setTableCount(createDto.getTableCount());
         return restaurant;
     }
-
-    public void updateEntity(RestaurantCreateDto createDto, Restaurant restaurant) {
-        if (createDto == null || restaurant == null) {
-            return;
-        }
-
-        restaurant.setName(createDto.getName());
-        restaurant.setAddress(createDto.getAddress());
-        restaurant.setPhoneNumber(createDto.getPhoneNumber());
-        restaurant.setCuisineType(createDto.getCuisineType());
-        restaurant.setTableCount(createDto.getTableCount());
-    }
 }
