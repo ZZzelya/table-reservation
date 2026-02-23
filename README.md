@@ -10,8 +10,6 @@
   
   [![Java](https://img.shields.io/badge/Java-17-%23ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://openjdk.org/)
   [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2-%236DB33F?style=for-the-badge&logo=spring&logoColor=white)](https://spring.io/projects/spring-boot)
-  [![Maven](https://img.shields.io/badge/Maven-3.9-%23C71A36?style=for-the-badge&logo=apache-maven&logoColor=white)](https://maven.apache.org/)
-  [![Checkstyle](https://img.shields.io/badge/Checkstyle-Sun%20Style-%234D4D4D?style=for-the-badge&logo=checkmarx&logoColor=white)](https://checkstyle.org/)
   [![SonarCloud](https://img.shields.io/badge/SonarCloud-Quality%20Gate-%23F3702A?style=for-the-badge&logo=sonarcloud&logoColor=white)](https://sonarcloud.io/summary/overall?id=ZZzelya_table-reservation&branch=main)
   
 </div>
