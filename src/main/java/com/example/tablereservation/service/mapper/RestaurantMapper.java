@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class RestaurantMapper {
 
-    // Преобразование Entity -> DTO для ответа
     public RestaurantDto toDto(Restaurant restaurant) {
         if (restaurant == null) {
             return null;
@@ -24,7 +23,6 @@ public class RestaurantMapper {
         return dto;
     }
 
-    // Преобразование DTO для создания -> Entity
     public Restaurant toEntity(RestaurantCreateDto createDto) {
         if (createDto == null) {
             return null;
@@ -39,7 +37,6 @@ public class RestaurantMapper {
         return restaurant;
     }
 
-    // Обновление существующей Entity из DTO
     public void updateEntity(RestaurantCreateDto createDto, Restaurant restaurant) {
         if (createDto == null || restaurant == null) {
             return;

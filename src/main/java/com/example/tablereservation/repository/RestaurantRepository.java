@@ -12,7 +12,6 @@ import java.util.concurrent.atomic.AtomicLong;
 @Repository
 public class RestaurantRepository {
 
-    // Потокобезопасное хранилище
     private final ConcurrentHashMap<Long, Restaurant> storage = new ConcurrentHashMap<>();
     private final AtomicLong idGenerator = new AtomicLong(1);
 
