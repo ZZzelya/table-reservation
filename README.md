@@ -2,7 +2,7 @@
   
   # 🍽️ TABLE RESERVATION API
   
-  ### Система бронирования столиков в кафе
+  ### Система бронирования столиков в ресторане
   
   <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=24&duration=3000&pause=500&color=2F81F7&center=true&vCenter=true&width=435&lines=Java+17;Spring+Boot+3;REST+API;Checkstyle+%26+SonarCloud" alt="Typing SVG" />
   
