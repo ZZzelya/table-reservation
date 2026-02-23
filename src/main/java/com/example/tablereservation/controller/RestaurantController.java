@@ -21,7 +21,6 @@ public class RestaurantController {
 
     private final RestaurantService restaurantService;
 
-    // GET все рестораны или с фильтром
     @GetMapping
     public List<RestaurantDto> getRestaurants(
         @RequestParam(value = "cuisine", required = false) String cuisineType) {
@@ -32,13 +31,11 @@ public class RestaurantController {
         }
     }
 
-    // GET по ID
     @GetMapping("/{id}")
     public RestaurantDto getRestaurantById(@PathVariable Long id) {
         return restaurantService.getRestaurantById(id);
     }
 
-    // POST создание
     @PostMapping
     public RestaurantDto createRestaurant(@RequestBody RestaurantCreateDto createDto) {
         return restaurantService.createRestaurant(createDto);
