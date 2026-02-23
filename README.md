@@ -40,7 +40,6 @@
     <img src="https://sonarcloud.io/api/project_badges/measure?project=ZZzelya_table-reservation&metric=alert_status" alt="Quality Gate Status">
     <img src="https://sonarcloud.io/api/project_badges/measure?project=ZZzelya_table-reservation&metric=bugs" alt="Bugs">
     <img src="https://sonarcloud.io/api/project_badges/measure?project=ZZzelya_table-reservation&metric=code_smells" alt="Code Smells">
-    <img src="https://sonarcloud.io/api/project_badges/measure?project=ZZzelya_table-reservation&metric=coverage" alt="Coverage">
     <img src="https://sonarcloud.io/api/project_badges/measure?project=ZZzelya_table-reservation&metric=duplicated_lines_density" alt="Duplicated Lines">
   </a>
   
