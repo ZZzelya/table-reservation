@@ -4,6 +4,7 @@ import com.example.tablereservation.dto.RestaurantCreateDto;
 import com.example.tablereservation.dto.RestaurantDto;
 import com.example.tablereservation.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,8 +33,14 @@ public class RestaurantController {
     }
 
     @GetMapping("/{id}")
-    public RestaurantDto getRestaurantById(@PathVariable Long id) {
-        return restaurantService.getRestaurantById(id);
+    public ResponseEntity<RestaurantDto> getRestaurantById(@PathVariable Long id) {
+        RestaurantDto restaurant = restaurantService.getRestaurantById(id);
+
+        if (restaurant == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(restaurant);
     }
 
     @PostMapping
