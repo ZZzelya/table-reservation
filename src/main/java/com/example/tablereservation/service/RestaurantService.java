@@ -8,6 +8,7 @@ import com.example.tablereservation.service.mapper.RestaurantMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,21 +19,37 @@ public class RestaurantService {
     private final RestaurantMapper restaurantMapper;
 
     public List<RestaurantDto> getAllRestaurants() {
-        return restaurantRepository.findAll().stream()
-            .map(restaurantMapper::toDto).toList();
+        List<Restaurant> restaurants = restaurantRepository.findAll();
+        List<RestaurantDto> restaurantDto = new ArrayList<>();
+
+        for (Restaurant restaurant : restaurants) {
+            restaurantDto.add(restaurantMapper.toDto(restaurant));
+        }
+
+        return restaurantDto;
     }
 
     public RestaurantDto getRestaurantById(Long id) {
-        return restaurantRepository.findById(id)
-            .map(restaurantMapper::toDto)
-            .orElse(null);
+        Restaurant restaurant = restaurantRepository.findById(id).orElse(null);
+
+        if (restaurant != null) {
+            return restaurantMapper.toDto(restaurant);
+        }
+
+        return null;
     }
 
     public List<RestaurantDto> getRestaurantsByCuisine(String cuisineType) {
-        return restaurantRepository.findAll().stream()
-            .filter(r -> r.getCuisineType().equalsIgnoreCase(cuisineType))
-            .map(restaurantMapper::toDto)
-            .toList();
+        List<Restaurant> allRestaurants = restaurantRepository.findAll();
+        List<RestaurantDto> filteredRestaurants = new ArrayList<>();
+
+        for (Restaurant restaurant : allRestaurants) {
+            if (restaurant.getCuisineType().equalsIgnoreCase(cuisineType)) {
+                filteredRestaurants.add(restaurantMapper.toDto(restaurant));
+            }
+        }
+
+        return filteredRestaurants;
     }
 
     public RestaurantDto createRestaurant(RestaurantCreateDto createDto) {
