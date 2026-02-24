@@ -23,13 +23,22 @@ public class RestaurantController {
     private final RestaurantService restaurantService;
 
     @GetMapping
-    public List<RestaurantDto> getRestaurants(
+    public ResponseEntity<List<RestaurantDto>> getRestaurants(
         @RequestParam(value = "cuisine", required = false) String cuisineType) {
+
+        List<RestaurantDto> restaurants;
+
         if (cuisineType != null && !cuisineType.isEmpty()) {
-            return restaurantService.getRestaurantsByCuisine(cuisineType);
+            restaurants = restaurantService.getRestaurantsByCuisine(cuisineType);
         } else {
-            return restaurantService.getAllRestaurants();
+            restaurants = restaurantService.getAllRestaurants();
         }
+
+        if (restaurants.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(restaurants);
     }
 
     @GetMapping("/{id}")
