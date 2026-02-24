@@ -110,10 +110,6 @@ API позволяет управлять ресторанами, столика
     <img src="https://sonarcloud.io/api/project_badges/measure?project=ZZzelya_table-reservation&metric=duplicated_lines_density" alt="Duplicated Lines">
   </a>
 
-*
-
-*
-
 👉 [Перейти к полному анализу на SonarCloud](https://sonarcloud.io/summary/overall?id=ZZzelya_table-reservation&branch=main)
 **
 </div>
