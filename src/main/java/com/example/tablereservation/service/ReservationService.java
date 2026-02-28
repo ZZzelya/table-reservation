@@ -93,7 +93,6 @@ public class ReservationService {
         return reservationMapper.toDto(savedReservation);
     }
 
-    @Transactional
     public ReservationDto createReservationWithoutTransaction(ReservationCreateDto createDto) {
         log.info("=== Creating reservation WITHOUT transaction (partial save demo) ===");
 
