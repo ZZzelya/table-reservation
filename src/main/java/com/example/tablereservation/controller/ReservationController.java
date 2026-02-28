@@ -1,6 +1,5 @@
 package com.example.tablereservation.controller;
 
-
 import com.example.tablereservation.dto.request.ReservationCreateDto;
 import com.example.tablereservation.dto.request.RestaurantWithTablesAndMenuDto;
 import com.example.tablereservation.dto.response.ReservationDto;
@@ -20,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/reservations")
@@ -35,24 +36,40 @@ public class ReservationController {
     }
 
     @PostMapping("/demo/without-tx")
-    public ResponseEntity<?> createReservationWithoutTransaction(@RequestBody ReservationCreateDto createDto) {
+    public ResponseEntity<Map<String, Object>> createReservationWithoutTransaction(@RequestBody
+                                                                                   ReservationCreateDto createDto) {
         try {
             ReservationDto created = reservationService.createReservationWithoutTransaction(createDto);
-            return ResponseEntity.ok(created);
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("data", created);
+            response.put("message", "Reservation created partially");
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Error: " + e.getMessage() + " (partial data might have been saved)");
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("success", false);
+            errorResponse.put("error", e.getMessage());
+            errorResponse.put("message", "Partial data might have been saved");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
 
     @PostMapping("/demo/with-tx")
-    public ResponseEntity<?> createReservationWithTransaction(@RequestBody ReservationCreateDto createDto) {
+    public ResponseEntity<Map<String, Object>> createReservationWithTransaction(@RequestBody
+                                                                                ReservationCreateDto createDto) {
         try {
             ReservationDto created = reservationService.createReservationWithTransaction(createDto);
-            return ResponseEntity.ok(created);
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("data", created);
+            response.put("message", "Reservation created successfully with transaction");
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Error: " + e.getMessage() + " (all changes rolled back)");
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("success", false);
+            errorResponse.put("error", e.getMessage());
+            errorResponse.put("message", "All changes rolled back");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
 
