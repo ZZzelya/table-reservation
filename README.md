@@ -5,7 +5,6 @@
 ### ✦ Система бронирования столиков в ресторане ✦
 
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=26&duration=3000&pause=500&color=00B8FF&center=true&vCenter=true&width=500&lines=Java+17+✦+Spring+Boot+3;JPA+%2F+Hibernate+✦+H2;REST+API+✦+Maven;N%2B1+Solved+✦+%40Transactional;Checkstyle+✦+SonarCloud" alt="Typing SVG" />
-
 <br>
 
 [![Java](https://img.shields.io/badge/Java-17-%23ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://openjdk.org/)
@@ -252,13 +251,6 @@ cd table-reservation
 # 4. Запустите приложение
 java -jar target/table-reservation-*.jar
 ```
-
-**Подключение к H2 Database:**
-
-- URL: `http://localhost:8080/h2-console`
-- JDBC URL: `jdbc:h2:mem:tablereservation`
-- User Name: `sa`
-- Password: (пусто)
 
 ---
 
