@@ -1,33 +1,35 @@
 package com.example.tablereservation.repository;
 
-import com.example.tablereservation.model.Restaurant;
+import com.example.tablereservation.model.entity.Restaurant;
+import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
-public class RestaurantRepository {
+public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
+    List<Restaurant> findByCuisineTypeIgnoreCase(String cuisineType);
 
-    private final ConcurrentHashMap<Long, Restaurant> storage = new ConcurrentHashMap<>();
-    private final AtomicLong idGenerator = new AtomicLong(1);
+    List<Restaurant> findByNameContainingIgnoreCase(String name);
 
-    public Restaurant save(Restaurant restaurant) {
-        if (restaurant.getId() == null) {
-            restaurant.setId(idGenerator.getAndIncrement());
-        }
-        storage.put(restaurant.getId(), restaurant);
-        return restaurant;
-    }
+    List<Restaurant> findByIsActiveTrue();
 
-    public Optional<Restaurant> findById(Long id) {
-        return Optional.ofNullable(storage.get(id));
-    }
+    Optional<Restaurant> findByPhoneNumber(String phoneNumber);
 
-    public List<Restaurant> findAll() {
-        return new ArrayList<>(storage.values());
-    }
+    boolean existsByPhoneNumber(String phoneNumber);
+
+    @EntityGraph(attributePaths = {"tables"})
+    @Query("SELECT r FROM Restaurant r WHERE r.id = :id")
+    Optional<Restaurant> findByIdWithTables(@Param("id") Long id);
+
+    @EntityGraph(attributePaths = {"menuItems"})
+    @Query("SELECT r FROM Restaurant r WHERE r.id = :id")
+    Optional<Restaurant> findByIdWithMenuItems(@Param("id") Long id);
+
+    @Query("SELECT DISTINCT r FROM Restaurant r LEFT JOIN FETCH r.tables WHERE r.cuisineType = :cuisineType")
+    List<Restaurant> findByCuisineTypeWithTables(@Param("cuisineType") String cuisineType);
 }
