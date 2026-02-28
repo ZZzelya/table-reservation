@@ -2,37 +2,27 @@
 
 # 🍽️ TABLE RESERVATION API
 
-### Система бронирования столиков в ресторане
+### ✦ Система бронирования столиков в ресторане ✦
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=24&duration=3000&pause=500&color=2F81F7&center=true&vCenter=true&width=500&lines=Java+17;Spring+Boot+3;JPA+%2F+Hibernate;H2+Database;N%2B1+Solved;%40Transactional+Demo" alt="Typing SVG" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=26&duration=3000&pause=500&color=00B8FF&center=true&vCenter=true&width=500&lines=Java+17+✦+Spring+Boot+3;JPA+%2F+Hibernate+✦+H2;REST+API+✦+Maven;N%2B1+Solved+✦+%40Transactional;Checkstyle+✦+SonarCloud" alt="Typing SVG" />
+
+<br>
 
 [![Java](https://img.shields.io/badge/Java-17-%23ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://openjdk.org/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2-%236DB33F?style=for-the-badge&logo=spring&logoColor=white)](https://spring.io/projects/spring-boot)
 [![JPA](https://img.shields.io/badge/JPA-Hibernate-59666C?style=for-the-badge&logo=hibernate&logoColor=white)](https://hibernate.org/)
 [![H2](https://img.shields.io/badge/H2-Database-0078D4?style=for-the-badge&logo=h2&logoColor=white)](https://www.h2database.com/)
 [![Postman](https://img.shields.io/badge/Postman-Testing-FF6C37?style=for-the-badge&logo=postman&logoColor=white)](https://www.postman.com/)
-[![SonarCloud](https://img.shields.io/badge/SonarCloud-Quality%20Gate-%23F3702A?style=for-the-badge&logo=sonarcloud&logoColor=white)](https://sonarcloud.io/summary/overall?id=ZZzelya_table-reservation&branch=main)
+[![SonarCloud](https://img.shields.io/badge/SonarCloud-Quality%20Gate-F3702A?style=for-the-badge&logo=sonarcloud&logoColor=white)](https://sonarcloud.io/summary/overall?id=ZZzelya_table-reservation&branch=main)
 
----
-
-## 📋 СОДЕРЖАНИЕ
-
-- [📖 О проекте](#-о-проекте)
-- [✅ Выполненные требования](#-выполненные-требования)
-- [✨ Функциональность](#-функциональность)
-- [📊 Демонстрация N+1 проблемы](#-демонстрация-n1-проблемы)
-- [🔄 Демонстрация транзакций](#-демонстрация-транзакций)
-- [🛠️ Технологический стек](#️-технологический-стек)
-- [🔗 SonarCloud анализ](#-sonarcloud-анализ)
-- [🚀 Запуск проекта](#-запуск-проекта)
-- [📬 Примеры запросов для Postman](#-примеры-запросов-для-postman)
+</div>
 
 ---
 
 ## 📖 О ПРОЕКТЕ
 
-Данный проект представляет собой **REST API сервис** для бронирования столиков в ресторане. Разработан в рамках
-лабораторной работы по дисциплине *"Программирование на языках высокого уровня"*.
+**REST API сервис** для бронирования столиков в ресторане. Разработан в рамках лабораторной работы по дисциплине *"
+Программирование на языках высокого уровня"*.
 
 **Цель работы:** Создание Spring Boot приложения с подключением реляционной базы данных, реализация связей между
 сущностями, демонстрация и решение проблемы N+1, исследование поведения транзакций.
@@ -49,52 +39,53 @@
 
 ## ✅ ВЫПОЛНЕННЫЕ ТРЕБОВАНИЯ
 
-### 1. Подключение реляционной БД
-
-- **H2 Database** (in-memory)
-- **JPA / Hibernate** ORM
-
-### 2. Модель данных (5 сущностей)
-
-| Сущность          | Описание     | Связи                                                    |
-|-------------------|--------------|----------------------------------------------------------|
-| `Restaurant`      | Ресторан     | OneToMany → `Table`, `MenuItem`                          |
-| `RestaurantTable` | Столик       | ManyToOne → `Restaurant`, OneToMany → `Reservation`      |
-| `Customer`        | Клиент       | OneToMany → `Reservation`                                |
-| `MenuItem`        | Блюдо в меню | ManyToOne → `Restaurant`, ManyToMany → `Reservation`     |
-| `Reservation`     | Бронирование | ManyToOne → `Customer`, `Table`, ManyToMany → `MenuItem` |
-
-### 3. Реализованные связи
-
-- ✅ **OneToMany:** `Restaurant` → `RestaurantTable`
-- ✅ **ManyToMany:** `Reservation` ↔ `MenuItem`
-
-### 4. CRUD операции
-
-Полноценные CRUD операции для всех 5 сущностей:
-
-- `GET` (все записи, по ID, с фильтрацией)
-- `POST` (создание)
-- `PUT` (обновление)
-- `DELETE` (удаление)
-
-### 5. CascadeType и FetchType
-
-| Связь                            | CascadeType | FetchType | Обоснование                         |
-|----------------------------------|-------------|-----------|-------------------------------------|
-| `Restaurant` → `RestaurantTable` | `ALL`       | `LAZY`    | Столики не существуют без ресторана |
-| `Restaurant` → `MenuItem`        | `ALL`       | `LAZY`    | Меню не существует без ресторана    |
-| `Reservation` ↔ `MenuItem`       | -           | `LAZY`    | Оптимизация производительности      |
-
-### 6. Проблема N+1
-
-- ✅ **Демонстрация** проблемы N+1
-- ✅ **Решение** через `fetch join`
-
-### 7. Транзакции
-
-- ✅ **Частичное сохранение** без `@Transactional`
-- ✅ **Полный откат** с `@Transactional`
+<table>
+  <tr>
+    <th width="5%">№</th>
+    <th width="25%">Требование</th>
+    <th width="70%">Реализация</th>
+  </tr>
+  <tr>
+    <td align="center">1</td>
+    <td><b>Подключение реляционной БД</b></td>
+    <td>H2 Database (in-memory) + JPA / Hibernate ORM</td>
+  </tr>
+  <tr>
+    <td align="center">2</td>
+    <td><b>5 сущностей</b></td>
+    <td><code>Restaurant</code> • <code>RestaurantTable</code> • <code>Customer</code> • <code>MenuItem</code> • <code>Reservation</code></td>
+  </tr>
+  <tr>
+    <td align="center">3</td>
+    <td><b>OneToMany связь</b></td>
+    <td><code>Restaurant</code> → <code>RestaurantTable</code></td>
+  </tr>
+  <tr>
+    <td align="center">4</td>
+    <td><b>ManyToMany связь</b></td>
+    <td><code>Reservation</code> ↔ <code>MenuItem</code></td>
+  </tr>
+  <tr>
+    <td align="center">5</td>
+    <td><b>CRUD операции</b></td>
+    <td>Create • Read • Update • Delete для всех сущностей</td>
+  </tr>
+  <tr>
+    <td align="center">6</td>
+    <td><b>CascadeType & FetchType</b></td>
+    <td>Настроены и обоснованы</td>
+  </tr>
+  <tr>
+    <td align="center">7</td>
+    <td><b>Проблема N+1</b></td>
+    <td>✅ Демонстрация • ✅ Решение через fetch join</td>
+  </tr>
+  <tr>
+    <td align="center">8</td>
+    <td><b>Транзакции</b></td>
+    <td>⚠️ Частичное сохранение без @Transactional • 🔄 Полный откат с @Transactional</td>
+  </tr>
+</table>
 
 ---
 
@@ -102,28 +93,28 @@
 
 ### 🏨 Управление ресторанами (`/api/restaurants`)
 
-| Метод    | Endpoint                                | Описание                           |
-|----------|-----------------------------------------|------------------------------------|
-| `GET`    | `/api/restaurants`                      | Все рестораны                      |
-| `GET`    | `/api/restaurants/{id}`                 | Ресторан по ID                     |
-| `GET`    | `/api/restaurants/{id}/with-tables`     | Ресторан со столиками (fetch join) |
-| `GET`    | `/api/restaurants/by-cuisine?cuisine=`  | Поиск по типу кухни                |
-| `GET`    | `/api/restaurants/demo/nplus1?cuisine=` | Демонстрация N+1                   |
-| `GET`    | `/api/restaurants/demo/solved?cuisine=` | Решение N+1                        |
-| `POST`   | `/api/restaurants`                      | Создать ресторан                   |
-| `PUT`    | `/api/restaurants/{id}`                 | Обновить ресторан                  |
-| `DELETE` | `/api/restaurants/{id}`                 | Удалить ресторан                   |
+| Метод    | Endpoint                                | Описание              |
+|----------|-----------------------------------------|-----------------------|
+| `GET`    | `/api/restaurants`                      | Все рестораны         |
+| `GET`    | `/api/restaurants/{id}`                 | Ресторан по ID        |
+| `GET`    | `/api/restaurants/{id}/with-tables`     | Ресторан со столиками |
+| `GET`    | `/api/restaurants/by-cuisine?cuisine=`  | Поиск по кухне        |
+| `GET`    | `/api/restaurants/demo/nplus1?cuisine=` | Демо N+1              |
+| `GET`    | `/api/restaurants/demo/solved?cuisine=` | Решение N+1           |
+| `POST`   | `/api/restaurants`                      | Создать ресторан      |
+| `PUT`    | `/api/restaurants/{id}`                 | Обновить ресторан     |
+| `DELETE` | `/api/restaurants/{id}`                 | Удалить ресторан      |
 
 ### 👤 Управление клиентами (`/api/customers`)
 
-| Метод    | Endpoint                                | Описание                |
-|----------|-----------------------------------------|-------------------------|
-| `GET`    | `/api/customers`                        | Все клиенты             |
-| `GET`    | `/api/customers/{id}`                   | Клиент по ID            |
-| `GET`    | `/api/customers/{id}/with-reservations` | Клиент с бронированиями |
-| `POST`   | `/api/customers`                        | Создать клиента         |
-| `PUT`    | `/api/customers/{id}`                   | Обновить клиента        |
-| `DELETE` | `/api/customers/{id}`                   | Удалить клиента         |
+| Метод    | Endpoint                                | Описание         |
+|----------|-----------------------------------------|------------------|
+| `GET`    | `/api/customers`                        | Все клиенты      |
+| `GET`    | `/api/customers/{id}`                   | Клиент по ID     |
+| `GET`    | `/api/customers/{id}/with-reservations` | Клиент с бронями |
+| `POST`   | `/api/customers`                        | Создать клиента  |
+| `PUT`    | `/api/customers/{id}`                   | Обновить клиента |
+| `DELETE` | `/api/customers/{id}`                   | Удалить клиента  |
 
 ### 🪑 Управление столиками (`/api/tables`)
 
@@ -155,25 +146,59 @@
 | `POST`   | `/api/reservations/restaurant-with-tables` | 🏗️ Создать ресторан со всем |
 | `GET`    | `/api/reservations/customer/{customerId}`  | Бронирования клиента         |
 | `GET`    | `/api/reservations/{id}`                   | Бронирование по ID           |
-| `GET`    | `/api/reservations/{id}/with-details`      | Бронирование с блюдами       |
+| `GET`    | `/api/reservations/{id}/with-details`      | Бронь с блюдами              |
 | `PATCH`  | `/api/reservations/{id}/status?status=`    | Обновить статус              |
 | `DELETE` | `/api/reservations/{id}`                   | Отменить бронирование        |
 
 ---
 
-### Таблица для демонстрации работы проблемы N+1
+## 📊 ДЕМОНСТРАЦИЯ N+1 ПРОБЛЕМЫ
 
-| Сценарий              | @Transactional | Бронирование      | Блюда            | Итог                    |
-|-----------------------|----------------|-------------------|------------------|-------------------------|
-| Успешное бронирование | ✅              | ✅ Сохранилось     | ✅ Сохранились    | ✅ Всё ОК                |
-| Ошибка БЕЗ транзакции | ❌              | ✅ **Сохранилось** | ❌ Не сохранились | ⚠️ **Частичные данные** |
-| Ошибка С транзакцией  | ✅              | ❌ **Откатилось**  | ❌ Не сохранились | ✅ **Чистая БД**         |
+**Проблема (в логах консоли):**
+
+```sql
+-- 1 запрос на рестораны
+SELECT *
+FROM restaurants
+WHERE cuisine_type = 'Italian'
+
+-- N запросов на столики (для каждого ресторана)
+SELECT *
+FROM tables
+WHERE restaurant_id = 1
+SELECT *
+FROM tables
+WHERE restaurant_id = 2
+SELECT *
+FROM tables
+WHERE restaurant_id = 3
+```
+
+**Решение (через fetch join):**
+
+```sql
+-- ОДИН запрос с JOIN
+SELECT r
+FROM Restaurant r
+         LEFT JOIN FETCH r.tables
+WHERE r.cuisineType = 'Italian'
+```
+
+**Результат:** Вместо 1 + N запросов → **всего 1 запрос** 🚀
+
+---
+
+## 📊 СРАВНЕНИЕ РЕЗУЛЬТАТОВ
+
+| Сценарий                 | @Transactional |   Бронирование    |      Блюда       |          Итог           |
+|--------------------------|:--------------:|:-----------------:|:----------------:|:-----------------------:|
+| ✅ Успешное бронирование  |       ✅        |   ✅ Сохранилось   |  ✅ Сохранились   |      ✅ **Всё ОК**       |
+| ⚠️ Ошибка БЕЗ транзакции |       ❌        | ✅ **Сохранилось** | ❌ Не сохранились | ⚠️ **Частичные данные** |
+| 🔄 Ошибка С транзакцией  |       ✅        | ❌ **Откатилось**  | ❌ Не сохранились |     ✅ **Чистая БД**     |
 
 ---
 
 ## 🛠️ ТЕХНОЛОГИЧЕСКИЙ СТЕК
-
-<div align="center">
 
 | Категория            | Технологии                              |
 |----------------------|-----------------------------------------|
@@ -186,20 +211,17 @@
 | **Качество кода**    | Checkstyle, SonarCloud                  |
 | **Тестирование API** | Postman                                 |
 
-</div>
-
 ---
 
 ## 🔗 SONARCLOUD АНАЛИЗ
 
 <div align="center">
-  <a href="https://sonarcloud.io/summary/overall?id=ZZzelya_table-reservation&branch=main">
-    <img src="https://sonarcloud.io/api/project_badges/measure?project=ZZzelya_table-reservation&metric=alert_status" alt="Quality Gate Status">
-    <img src="https://sonarcloud.io/api/project_badges/measure?project=ZZzelya_table-reservation&metric=bugs" alt="Bugs">
-    <img src="https://sonarcloud.io/api/project_badges/measure?project=ZZzelya_table-reservation&metric=code_smells" alt="Code Smells">
-    <img src="https://sonarcloud.io/api/project_badges/measure?project=ZZzelya_table-reservation&metric=coverage" alt="Coverage">
-    <img src="https://sonarcloud.io/api/project_badges/measure?project=ZZzelya_table-reservation&metric=duplicated_lines_density" alt="Duplicated Lines">
-  </a>
+
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=ZZzelya_table-reservation&metric=alert_status)](https://sonarcloud.io/summary/overall?id=ZZzelya_table-reservation&branch=main)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=ZZzelya_table-reservation&metric=bugs)](https://sonarcloud.io/summary/overall?id=ZZzelya_table-reservation&branch=main)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=ZZzelya_table-reservation&metric=code_smells)](https://sonarcloud.io/summary/overall?id=ZZzelya_table-reservation&branch=main)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ZZzelya_table-reservation&metric=coverage)](https://sonarcloud.io/summary/overall?id=ZZzelya_table-reservation&branch=main)
+[![Duplicated Lines](https://sonarcloud.io/api/project_badges/measure?project=ZZzelya_table-reservation&metric=duplicated_lines_density)](https://sonarcloud.io/summary/overall?id=ZZzelya_table-reservation&branch=main)
 
 👉 [**Перейти к полному анализу на SonarCloud
 **](https://sonarcloud.io/summary/overall?id=ZZzelya_table-reservation&branch=main)
@@ -210,12 +232,12 @@
 
 ## 🚀 ЗАПУСК ПРОЕКТА
 
-### Предварительные требования
+**Предварительные требования:**
 
 - JDK 17 или выше
 - Maven 3.6+
 
-### Установка и запуск
+**Установка и запуск:**
 
 ```bash
 # 1. Клонируйте репозиторий
@@ -231,11 +253,19 @@ cd table-reservation
 java -jar target/table-reservation-*.jar
 ```
 
+**Подключение к H2 Database:**
+
+- URL: `http://localhost:8080/h2-console`
+- JDBC URL: `jdbc:h2:mem:tablereservation`
+- User Name: `sa`
+- Password: (пусто)
+
 ---
 
 ## 📬 ПРИМЕРЫ ЗАПРОСОВ ДЛЯ POSTMAN
 
-### 1. Создание клиента
+<details>
+<summary><b>📝 1. Создание клиента</b></summary>
 
 ```json
 POST http://localhost:8080/api/customers
@@ -246,7 +276,10 @@ POST http://localhost:8080/api/customers
 }
 ```
 
-### 2. Создание ресторана
+</details>
+
+<details>
+<summary><b>🏨 2. Создание ресторана</b></summary>
 
 ```json
 POST http://localhost:8080/api/restaurants
@@ -259,7 +292,10 @@ POST http://localhost:8080/api/restaurants
 }
 ```
 
-### 3. Создание столика
+</details>
+
+<details>
+<summary><b>🪑 3. Создание столика</b></summary>
 
 ```json
 POST http://localhost:8080/api/tables
@@ -271,7 +307,10 @@ POST http://localhost:8080/api/tables
 }
 ```
 
-### 4. Создание блюда
+</details>
+
+<details>
+<summary><b>🍕 4. Создание блюда</b></summary>
 
 ```json
 POST http://localhost:8080/api/menu-items
@@ -282,7 +321,10 @@ POST http://localhost:8080/api/menu-items
 }
 ```
 
-### 5. Успешное бронирование
+</details>
+
+<details>
+<summary><b>✅ 5. Успешное бронирование</b></summary>
 
 ```json
 POST http://localhost:8080/api/reservations
@@ -295,19 +337,28 @@ POST http://localhost:8080/api/reservations
 }
 ```
 
-### 6. Демонстрация N+1 проблемы
+</details>
+
+<details>
+<summary><b>📊 6. Демонстрация N+1 проблемы</b></summary>
 
 ```
 GET http://localhost:8080/api/restaurants/demo/nplus1?cuisine=Italian
 ```
 
-### 7. Демонстрация решения N+1
+</details>
+
+<details>
+<summary><b>🚀 7. Демонстрация решения N+1</b></summary>
 
 ```
 GET http://localhost:8080/api/restaurants/demo/solved?cuisine=Italian
 ```
 
-### 8. Частичное сохранение (БЕЗ @Transactional)
+</details>
+
+<details>
+<summary><b>⚠️ 8. Частичное сохранение (БЕЗ @Transactional)</b></summary>
 
 ```json
 POST http://localhost:8080/api/reservations/demo/without-tx
@@ -320,7 +371,10 @@ POST http://localhost:8080/api/reservations/demo/without-tx
 }
 ```
 
-### 9. Полный откат (С @Transactional)
+</details>
+
+<details>
+<summary><b>🔄 9. Полный откат (С @Transactional)</b></summary>
 
 ```json
 POST http://localhost:8080/api/reservations/demo/with-tx
@@ -333,9 +387,32 @@ POST http://localhost:8080/api/reservations/demo/with-tx
 }
 ```
 
-### 10. Проверка бронирований клиента
+</details>
+
+<details>
+<summary><b>🔍 10. Проверка бронирований клиента</b></summary>
 
 ```
 GET http://localhost:8080/api/reservations/customer/1
 ```
+
+</details>
+
+---
+
+## 🏆 РЕЗУЛЬТАТЫ ТЕСТИРОВАНИЯ
+
+**N+1 проблема в логах консоли:**
+
+- До решения: 1 + N запросов 🐌
+- После решения: 1 запрос 🚀
+
+**Транзакции в действии:**
+
+- `POST /api/reservations` → ✅ id=1 (с блюдами)
+- `POST /demo/without-tx` → ⚠️ id=2 (без блюд)
+- `POST /demo/with-tx` → ❌ id=3 не появился
+
+---
+
 
