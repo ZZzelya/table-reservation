@@ -6,7 +6,6 @@ import com.example.tablereservation.model.entity.MenuItem;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class MenuItemMapper {
@@ -15,7 +14,6 @@ public class MenuItemMapper {
         if (menuItem == null) {
             return null;
         }
-
         MenuItemDto dto = new MenuItemDto();
         dto.setId(menuItem.getId());
         dto.setRestaurantId(menuItem.getRestaurant().getId());
@@ -33,13 +31,12 @@ public class MenuItemMapper {
         if (dto == null) {
             return null;
         }
-
         MenuItem menuItem = new MenuItem();
         menuItem.setName(dto.getName());
         menuItem.setDescription(dto.getDescription());
         menuItem.setPrice(dto.getPrice());
         menuItem.setCategory(dto.getCategory());
-        menuItem.setIsAvailable(dto.getIsAvailable() != null ? dto.getIsAvailable() : true);
+        menuItem.setIsAvailable(dto.getIsAvailable() != null ? dto.getIsAvailable() : Boolean.TRUE);
         menuItem.setPreparationTime(dto.getPreparationTime());
         menuItem.setImageUrl(dto.getImageUrl());
         return menuItem;
@@ -49,7 +46,6 @@ public class MenuItemMapper {
         if (dto == null) {
             return;
         }
-
         menuItem.setName(dto.getName());
         menuItem.setDescription(dto.getDescription());
         menuItem.setPrice(dto.getPrice());
@@ -60,8 +56,6 @@ public class MenuItemMapper {
     }
 
     public List<MenuItemDto> toDtoList(List<MenuItem> menuItems) {
-        return menuItems.stream()
-            .map(this::toDto)
-            .collect(Collectors.toList());
+        return menuItems.stream().map(this::toDto).toList();
     }
 }

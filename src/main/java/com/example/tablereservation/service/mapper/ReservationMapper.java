@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -20,7 +19,6 @@ public class ReservationMapper {
         if (reservation == null) {
             return null;
         }
-
         ReservationDto dto = new ReservationDto();
         dto.setId(reservation.getId());
         dto.setCustomerId(reservation.getCustomer().getId());
@@ -40,7 +38,6 @@ public class ReservationMapper {
         if (dto == null) {
             return null;
         }
-
         Reservation reservation = new Reservation();
         reservation.setReservationTime(dto.getReservationTime());
         reservation.setPartySize(dto.getPartySize());
@@ -54,7 +51,6 @@ public class ReservationMapper {
         if (dto == null) {
             return;
         }
-
         reservation.setReservationTime(dto.getReservationTime());
         reservation.setPartySize(dto.getPartySize());
         reservation.setSpecialRequests(dto.getSpecialRequests());
@@ -62,8 +58,6 @@ public class ReservationMapper {
     }
 
     public List<ReservationDto> toDtoList(List<Reservation> reservations) {
-        return reservations.stream()
-            .map(this::toDto)
-            .collect(Collectors.toList());
+        return reservations.stream().map(this::toDto).toList();
     }
 }

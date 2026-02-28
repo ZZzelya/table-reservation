@@ -6,6 +6,7 @@ import com.example.tablereservation.dto.request.RestaurantCreateDto;
 import com.example.tablereservation.dto.request.TableCreateDto;
 import com.example.tablereservation.dto.response.ReservationDto;
 import com.example.tablereservation.dto.response.RestaurantDto;
+import com.example.tablereservation.exception.BusinessException;
 import com.example.tablereservation.exception.ResourceNotFoundException;
 import com.example.tablereservation.model.entity.Customer;
 import com.example.tablereservation.model.entity.MenuItem;
@@ -42,7 +43,10 @@ public class ReservationService {
 
     @Transactional(readOnly = true)
     public List<ReservationDto> getReservationsByCustomer(Long customerId) {
-        return reservationMapper.toDtoList(reservationRepository.findByCustomerId(customerId));
+        return reservationRepository.findByCustomerId(customerId)
+            .stream()
+            .map(reservationMapper::toDto)
+            .toList();
     }
 
     @Transactional(readOnly = true)
@@ -63,8 +67,8 @@ public class ReservationService {
     @Transactional
     public ReservationDto createReservation(ReservationCreateDto createDto) {
         Customer customer = customerRepository.findById(createDto.getCustomerId())
-            .orElseThrow(() -> new ResourceNotFoundException("Customer not found with id: "
-                + createDto.getCustomerId()));
+            .orElseThrow(() -> new ResourceNotFoundException("Customer not found with id: " +
+                createDto.getCustomerId()));
 
         RestaurantTable table = tableRepository.findById(createDto.getTableId())
             .orElseThrow(() -> new ResourceNotFoundException("Table not found with id: " + createDto.getTableId()));
@@ -109,7 +113,7 @@ public class ReservationService {
         List<MenuItem> menuItems = menuItemRepository.findAllById(createDto.getMenuItemIds());
 
         if (menuItems.size() != createDto.getMenuItemIds().size()) {
-            throw new RuntimeException("Some menu items not found - reservation already saved!");
+            throw new BusinessException("Some menu items not found - reservation already saved!");
         }
 
         savedReservation.setPreOrderedItems(menuItems);
@@ -141,7 +145,7 @@ public class ReservationService {
         List<MenuItem> menuItems = menuItemRepository.findAllById(createDto.getMenuItemIds());
 
         if (menuItems.size() != createDto.getMenuItemIds().size()) {
-            throw new RuntimeException("Some menu items not found - transaction will rollback!");
+            throw new BusinessException("Some menu items not found - transaction will rollback!");
         }
 
         savedReservation.setPreOrderedItems(menuItems);
@@ -173,8 +177,7 @@ public class ReservationService {
         Restaurant savedRestaurant = restaurantRepository.save(restaurant);
 
         for (MenuItemCreateDto menuItemDto : menuItemDtos) {
-            MenuItem menuItem;
-            menuItem = new MenuItem();
+            MenuItem menuItem = new MenuItem();
             menuItem.setName(menuItemDto.getName());
             menuItem.setDescription(menuItemDto.getDescription());
             menuItem.setPrice(menuItemDto.getPrice());

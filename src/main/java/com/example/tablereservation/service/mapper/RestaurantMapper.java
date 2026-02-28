@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -81,6 +80,6 @@ public class RestaurantMapper {
     }
 
     public List<RestaurantDto> toDtoList(List<Restaurant> restaurants) {
-        return restaurants.stream().map(this::toDto).collect(Collectors.toList());
+        return restaurants.stream().map(this::toDto).toList();
     }
 }

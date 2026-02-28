@@ -6,7 +6,6 @@ import com.example.tablereservation.model.entity.RestaurantTable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class RestaurantTableMapper {
@@ -32,7 +31,7 @@ public class RestaurantTableMapper {
         RestaurantTable table = new RestaurantTable();
         table.setTableNumber(dto.getTableNumber());
         table.setCapacity(dto.getCapacity());
-        table.setIsAvailable(dto.getIsAvailable() != null ? dto.getIsAvailable() : true);
+        table.setIsAvailable(dto.getIsAvailable() != null ? dto.getIsAvailable() : Boolean.TRUE);
         table.setLocation(dto.getLocation());
         return table;
     }
@@ -48,6 +47,6 @@ public class RestaurantTableMapper {
     }
 
     public List<TableDto> toDtoList(List<RestaurantTable> tables) {
-        return tables.stream().map(this::toDto).collect(Collectors.toList());
+        return tables.stream().map(this::toDto).toList();
     }
 }
