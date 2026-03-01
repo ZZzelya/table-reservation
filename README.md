@@ -263,8 +263,6 @@ cd table-reservation
 java -jar target/table-reservation-*.jar
 ```
 
----
-
 ## 📬 ПРИМЕРЫ ЗАПРОСОВ ДЛЯ POSTMAN
 
 <details>
@@ -272,10 +270,13 @@ java -jar target/table-reservation-*.jar
 
 ```json
 POST http://localhost:8080/api/customers
+Content-Type: application/json
+
 {
-"name": "Иван Петров",
-"email": "ivan@mail.com",
-"phoneNumber": "+375-29-123-45-67"
+"name": "Зелень Александр",
+"email": "zelenaleksandr4@gmail.com",
+"phoneNumber": "+375-44-487-20-23",
+"preferredCuisine": "Italian"
 }
 ```
 
@@ -286,12 +287,16 @@ POST http://localhost:8080/api/customers
 
 ```json
 POST http://localhost:8080/api/restaurants
+Content-Type: application/json
+
 {
 "name": "Итальянский дворик",
-"address": "ул. Ленина, 10",
-"phoneNumber": "+375-29-987-65-43",
+"address": "ул. Ленина, 10, Минск",
+"phoneNumber": "+375-17-987-65-43",
 "cuisineType": "Italian",
-"tableCount": 10
+"tableCount": 15,
+"openingTime": "10:00",
+"closingTime": "23:00"
 }
 ```
 
@@ -302,11 +307,14 @@ POST http://localhost:8080/api/restaurants
 
 ```json
 POST http://localhost:8080/api/tables
+Content-Type: application/json
+
 {
 "restaurantId": 1,
 "tableNumber": 1,
 "capacity": 4,
-"isAvailable": true
+"isAvailable": true,
+"location": "У окна"
 }
 ```
 
@@ -317,10 +325,47 @@ POST http://localhost:8080/api/tables
 
 ```json
 POST http://localhost:8080/api/menu-items
+Content-Type: application/json
+
 {
 "restaurantId": 1,
 "name": "Паста Карбонара",
-"price": 650.00
+"description": "Традиционная итальянская паста с беконом и яйцом",
+"price": 28.50,
+"category": "PASTA",
+"isAvailable": true,
+"preparationTime": 15,
+"imageUrl": "https://example.com/images/carbonara.jpg"
+}
+```
+
+```json
+POST http://localhost:8080/api/menu-items
+Content-Type: application/json
+
+{
+"restaurantId": 1,
+"name": "Пицца Маргарита",
+"description": "Классическая пицца с томатами и моцареллой",
+"price": 33.90,
+"category": "PIZZA",
+"isAvailable": true,
+"preparationTime": 20
+}
+```
+
+```json
+POST http://localhost:8080/api/menu-items
+Content-Type: application/json
+
+{
+"restaurantId": 1,
+"name": "Тирамису",
+"description": "Итальянский десерт с маскарпоне",
+"price": 21.50,
+"category": "DESSERT",
+"isAvailable": true,
+"preparationTime": 10
 }
 ```
 
@@ -331,12 +376,16 @@ POST http://localhost:8080/api/menu-items
 
 ```json
 POST http://localhost:8080/api/reservations
+Content-Type: application/json
+
 {
 "customerId": 1,
 "tableId": 1,
-"reservationTime": "2024-03-15T17:00:00Z",
-"partySize": 2,
-"menuItemIds": [1]
+"reservationTime": "2024-03-15T19:00",
+"partySize": 4,
+"specialRequests": "День рождения, прошу украсить стол",
+"notes": "Будут сюрприз для именинника",
+"menuItemIds": [1, 2]
 }
 ```
 
@@ -365,12 +414,16 @@ GET http://localhost:8080/api/restaurants/demo/solved?cuisine=Italian
 
 ```json
 POST http://localhost:8080/api/reservations/demo/without-tx
+Content-Type: application/json
+
 {
 "customerId": 1,
 "tableId": 1,
-"reservationTime": "2024-03-15T18:00:00Z",
+"reservationTime": "2024-03-15T20:00",
 "partySize": 2,
-"menuItemIds": [999]
+"specialRequests": "У окна",
+"notes": "Тестовое бронирование",
+"menuItemIds": [999, 1000]
 }
 ```
 
@@ -381,12 +434,16 @@ POST http://localhost:8080/api/reservations/demo/without-tx
 
 ```json
 POST http://localhost:8080/api/reservations/demo/with-tx
+Content-Type: application/json
+
 {
 "customerId": 1,
 "tableId": 1,
-"reservationTime": "2024-03-15T19:00:00Z",
+"reservationTime": "2024-03-15T21:00",
 "partySize": 2,
-"menuItemIds": [999]
+"specialRequests": "Вегетарианское меню",
+"notes": "Проверка транзакций",
+"menuItemIds": [999, 1000]
 }
 ```
 
@@ -401,7 +458,109 @@ GET http://localhost:8080/api/reservations/customer/1
 
 </details>
 
----
+<details>
+<summary><b>🏗️ 11. Создание ресторана со столиками и меню</b></summary>
+
+```json
+POST http://localhost:8080/api/reservations/restaurant-with-tables
+Content-Type: application/json
+
+{
+"restaurant": {
+"name": "Французский ресторан Le Bistro",
+"address": "пр-т Независимости, 25, Минск",
+"phoneNumber": "+375-29-555-55-55",
+"cuisineType": "French",
+"tableCount": 8,
+"openingTime": "12:00",
+"closingTime": "00:00"
+},
+"tables": [
+{
+"tableNumber": 1,
+"capacity": 2,
+"isAvailable": true,
+"location": "Терраса"
+},
+{
+"tableNumber": 2,
+"capacity": 4,
+"isAvailable": true,
+"location": "Основной зал"
+},
+{
+"tableNumber": 3,
+"capacity": 6,
+"isAvailable": true,
+"location": "VIP комната"
+}
+],
+"menuItems": [
+{
+"name": "Улитки по-бургундски",
+"description": "Эскарго с чесночным маслом",
+"price": 27.90,
+"category": "APPETIZER",
+"isAvailable": true,
+"preparationTime": 20
+},
+{
+"name": "Лягушачьи лапки",
+"description": "Французский деликатес",
+"price": 36.00,
+"category": "MAIN",
+"isAvailable": true,
+"preparationTime": 25
+},
+{
+"name": "Крем-брюле",
+"description": "Классический французский десерт",
+"price": 12.30,
+"category": "DESSERT",
+"isAvailable": true,
+"preparationTime": 10
+}
+]
+}
+```
+
+</details>
+
+<details>
+<summary><b>🔄 12. Обновление статуса бронирования</b></summary>
+
+```
+PATCH http://localhost:8080/api/reservations/1/status?status=CONFIRMED
+```
+
+</details>
+
+<details>
+<summary><b>🗑️ 13. Отмена бронирования</b></summary>
+
+```
+DELETE http://localhost:8080/api/reservations/1
+```
+
+</details>
+
+<details>
+<summary><b>👤 14. Получение клиента с бронированиями</b></summary>
+
+```
+GET http://localhost:8080/api/customers/1/with-reservations
+```
+
+</details>
+
+<details>
+<summary><b>🍽️ 15. Получение ресторана со столиками</b></summary>
+
+```
+GET http://localhost:8080/api/restaurants/1/with-tables
+```
+
+</details>
 
 ## 🏆 РЕЗУЛЬТАТЫ ТЕСТИРОВАНИЯ
 
